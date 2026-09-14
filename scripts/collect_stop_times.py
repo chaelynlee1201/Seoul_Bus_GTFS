@@ -55,8 +55,9 @@ def raw_path(service_date):
 def out_dir(service_date):
     d=GBASE/service_date; d.mkdir(parents=True,exist_ok=True); return d
 
+# traTime1 = 표출 도착예정시간(초, arrmsg1과 일치) = 실제 ETA. kals1은 칼만추정치(참고용 보존).
 NEEDED=["stId","stNm","arsId","busRouteId","rtNm","staOrd","mkTm",
-        "vehId1","plainNo1","isLast1","isArrive1","kals1","arrmsg1"]
+        "vehId1","plainNo1","isLast1","isArrive1","traTime1","kals1","arrmsg1"]
 
 def fetch(rid):
     try:
@@ -69,6 +70,7 @@ def fetch(rid):
             if c not in df.columns: df[c]=None
         df=df[NEEDED].copy()
         df["staOrd"]=pd.to_numeric(df["staOrd"],errors="coerce").fillna(0).astype(int)
+        df["traTime1"]=pd.to_numeric(df["traTime1"],errors="coerce").fillna(-1).astype(int)
         df["kals1"]=pd.to_numeric(df["kals1"],errors="coerce").fillna(-1).astype(int)
         df["isArrive1"]=pd.to_numeric(df["isArrive1"],errors="coerce").fillna(0).astype(int)
         df["vehId1"]=df["vehId1"].astype(str).str.strip()
@@ -103,21 +105,23 @@ class Recorder:
             "stop_name":row["stNm"],"vehicle_id":row["vehId1"],
             "is_last":row["isLast1"],"source":src,"timepoint":tp})
     def update(self,trip,rid,row,now):
-        stop=str(row["arsId"]); k=(trip,stop); kals=int(row["kals1"]); msg=str(row["arrmsg1"]).strip()
-        arrived = (kals==0 and "곧" in msg) or int(row["isArrive1"])==1
-        if arrived:
+        # eta = traTime1 (표출 도착예정시간, arrmsg1과 일치하는 실제 ETA)
+        stop=str(row["arsId"]); k=(trip,stop); eta=int(row["traTime1"])
+        # 확정: isArrive1==1 = 버스가 정류소에 실제 도착 → 호출시각이 곧 도착시각
+        if int(row["isArrive1"])==1:
             self._emit(trip,rid,row,hms(now),"exact",1); self.pending.pop(k,None); return
-        self.pending[k]={"t":now,"kals":kals,"row":row.to_dict(),"trip":trip,"rid":rid}
+        self.pending[k]={"t":now,"eta":eta,"row":row.to_dict(),"trip":trip,"rid":rid}
     def flush_gone(self,cur):
+        # (trip,stop)이 다음 호출에 사라짐 = 버스가 그 정류소 통과 → 직전관측시각+ETA를 도착시각으로
         for k in set(self.pending)-cur:
-            p=self.pending.pop(k); kals=p["kals"]
-            if 0<kals<=self.interval+60:
-                arr=hms(p["t"]+timedelta(seconds=kals))
+            p=self.pending.pop(k); eta=p["eta"]
+            if 0<eta<=self.interval+60:
+                arr=hms(p["t"]+timedelta(seconds=eta))
                 self._emit(p["trip"],p["rid"],pd.Series(p["row"]),arr,"estimated",0)
     def flush_all(self):
         for k,p in list(self.pending.items()):
-            if p["kals"]>0:
-                arr=hms(p["t"]+timedelta(seconds=p["kals"]))
+            if p["eta"]>0:
+                arr=hms(p["t"]+timedelta(seconds=p["eta"]))
                 self._emit(p["trip"],p["rid"],pd.Series(p["row"]),arr,"estimated_eod",0)
         self.pending.clear()
     def df(self): return pd.DataFrame(self.recs)
@@ -202,6 +206,8 @@ def reprocess(date=None):
     print(f"재처리 대상: {RAW_LOG.name}")
     raw=pd.read_csv(RAW_LOG,dtype=str)
     raw["staOrd"]=pd.to_numeric(raw["staOrd"],errors="coerce").fillna(0).astype(int)
+    if "traTime1" not in raw.columns: raw["traTime1"]=-1   # 구버전 raw 호환
+    raw["traTime1"]=pd.to_numeric(raw["traTime1"],errors="coerce").fillna(-1).astype(int)
     raw["kals1"]=pd.to_numeric(raw["kals1"],errors="coerce").fillna(-1).astype(int)
     raw["isArrive1"]=pd.to_numeric(raw["isArrive1"],errors="coerce").fillna(0).astype(int)
     raw["vehId1"]=raw["vehId1"].astype(str).str.strip()
