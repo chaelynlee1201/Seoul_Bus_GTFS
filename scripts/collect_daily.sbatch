@@ -25,13 +25,12 @@ set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-$(pwd)}"
 mkdir -p logs
 
-# ── conda 환경 (클러스터에 맞게 수정) ────────────────────────────────────────
-if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
-  source "$HOME/miniforge3/etc/profile.d/conda.sh"
-elif [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-  source "$HOME/miniconda3/etc/profile.d/conda.sh"
-fi
-conda activate "${CONDA_ENV:-seoulbus}"   # 예: 'base' 또는 전용 env. 사전에 requirements.txt 설치.
+# ── conda 환경 (여러 설치 위치 자동 탐색) ────────────────────────────────────
+for c in "$HOME/miniforge3" "$HOME/miniconda3" "$HOME/anaconda3" /opt/miniconda3 /opt/anaconda3; do
+  if [ -f "$c/etc/profile.d/conda.sh" ]; then source "$c/etc/profile.d/conda.sh"; break; fi
+done
+conda activate "${CONDA_ENV:-base}"   # 제출 시 CONDA_ENV=GTFS 등으로 지정. 사전에 requirements.txt 설치.
+echo "[env] python=$(which python)"
 
 # ── .env 확인 (서버에 직접 생성 필요: SEOUL_TOPIS_API_KEY=...) ────────────────
 if [ ! -f .env ]; then
