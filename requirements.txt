@@ -1,0 +1,7 @@
+# 일별 도착 수집(collect_stop_times.py)에 필요한 최소 패키지
+requests>=2.28
+pandas>=1.5
+
+# 정류소 클립·경로정류소 재생성(build_stops.py, build_route_stops.py)에만 필요 — 서버 일상수집엔 불필요
+# geopandas>=0.12
+# shapely>=2.0

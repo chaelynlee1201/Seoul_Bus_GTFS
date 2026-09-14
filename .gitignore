@@ -1,0 +1,18 @@
+# secrets
+.env
+
+# logs (API 키가 에러 URL에 노출될 수 있어 제외)
+logs/
+
+# large raw / intermediate
+data/raw/
+data/boundary/
+data/raw_log_*.csv
+*.geojson
+
+# python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store

@@ -1,0 +1,2 @@
+feed_publisher_name,feed_publisher_url,feed_lang,feed_version
+Seoul_Bus_GTFS (Dongdaemun pilot),https://github.com/chaelynlee1201/Seoul_Bus_GTFS,ko,20260912
