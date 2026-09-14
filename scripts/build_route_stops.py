@@ -25,11 +25,10 @@ def load_env(path):
 load_env(ROOT/".env")
 KEY=os.environ["SEOUL_TOPIS_API_KEY"].strip()
 
-# 파일럿 노선 — 동대문구 통과 96노선 중 2026-08 실측 승차량 상위 5개
-# (271·272·130·152·273 — data/route_ridership_ranking.csv 근거)
+# 파일럿 노선 — 동대문구 통과 96노선 중 2026-08 실측 승차량 상위 3개
+# (271·272·130 — data/route_ridership_ranking.csv 근거)
 PILOT = {
     "100100047":"271", "100100048":"272", "100100018":"130",
-    "100100031":"152", "100100049":"273",
 }
 URL="http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute"
 STOPS_TXT=ROOT/"gtfs_output/stops.txt"

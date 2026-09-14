@@ -44,7 +44,7 @@ KEY=os.environ["SEOUL_TOPIS_API_KEY"].strip()
 # ── 설정 ──────────────────────────────────────────────────────────────
 META=json.loads((ROOT/"data/pilot_route_meta.json").read_text())  # rid -> {rtNm,max_seq,n_stops,turn_seq}
 ROUTES=list(META.keys())
-INTERVAL=360
+INTERVAL=240
 URL="http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll"
 GBASE=ROOT/"gtfs_output"          # 정적 파일(agency/stops/routes) 위치
 STATIC_FILES=["agency.txt","stops.txt","routes.txt"]

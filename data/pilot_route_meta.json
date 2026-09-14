@@ -16,17 +16,5 @@
     "max_seq": 87,
     "n_stops": 87,
     "turn_seq": 45
-  },
-  "100100031": {
-    "rtNm": "152",
-    "max_seq": 131,
-    "n_stops": 131,
-    "turn_seq": 68
-  },
-  "100100049": {
-    "rtNm": "273",
-    "max_seq": 113,
-    "n_stops": 113,
-    "turn_seq": 54
   }
 }

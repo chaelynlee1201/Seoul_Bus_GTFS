@@ -16,3 +16,6 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# 실수로 만들어진 중첩 클론 제외
+Seoul_Bus_GTFS/
