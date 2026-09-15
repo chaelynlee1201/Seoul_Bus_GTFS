@@ -50,10 +50,7 @@ fi
 echo "[$(date '+%F %T')] SLURM job $SLURM_JOB_ID 시작 — 서울버스 도착 수집"
 
 # ── 서비스일 04:00~00:30 수집 (start 이전 제출 시 04:00까지 대기) ─────────────
-# 날짜 이름 로그를 함께 남김(jobid 로그보다 구분 쉬움): logs/collect_YYYYMMDD.log
-DATELOG="logs/collect_$(date +%Y%m%d).log"
-echo "[$(date '+%F %T')] job $SLURM_JOB_ID → $DATELOG"
-python -u scripts/collect_stop_times.py --start 04:00 --end 24:30 2>&1 | tee -a "$DATELOG"
+python -u scripts/collect_stop_times.py --start 04:00 --end 24:30
 
 echo "[$(date '+%F %T')] 수집 종료. gtfs_output/$(date +%Y%m%d)/ 확인"
 
