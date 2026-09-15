@@ -1,8 +1,9 @@
 # secrets
 .env
 
-# logs (API 키가 에러 URL에 노출될 수 있어 제외)
-logs/
+# logs (API 키가 에러 URL에 노출될 수 있어 내용은 제외, 폴더는 유지 — SLURM --output 경로)
+logs/*
+!logs/.gitkeep
 
 # large raw / intermediate
 data/raw/
