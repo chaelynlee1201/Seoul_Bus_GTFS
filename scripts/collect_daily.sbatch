@@ -25,12 +25,21 @@ set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-$(pwd)}"
 mkdir -p logs
 
-# ── conda 환경 (여러 설치 위치 자동 탐색) ────────────────────────────────────
-for c in "$HOME/miniforge3" "$HOME/miniconda3" "$HOME/anaconda3" /opt/miniconda3 /opt/anaconda3; do
-  if [ -f "$c/etc/profile.d/conda.sh" ]; then source "$c/etc/profile.d/conda.sh"; break; fi
-done
-conda activate "${CONDA_ENV:-base}"   # 제출 시 CONDA_ENV=GTFS 등으로 지정. 사전에 requirements.txt 설치.
-echo "[env] python=$(which python)"
+# ── conda 활성화 (배치 셸은 .bashrc 미로드 → conda.sh 직접 source) ───────────
+# --export=ALL 제출 시 conda 실행파일이 PATH에 있어 base 자동 탐지 가능
+CONDA_BASE="$(conda info --base 2>/dev/null)"
+if [ -z "$CONDA_BASE" ]; then
+  for c in "$HOME/miniforge3" "$HOME/miniconda3" "$HOME/anaconda3" /opt/miniconda3 /opt/anaconda3 /opt/conda; do
+    [ -d "$c" ] && CONDA_BASE="$c" && break
+  done
+fi
+if [ -f "$CONDA_BASE/etc/profile.d/conda.sh" ]; then
+  source "$CONDA_BASE/etc/profile.d/conda.sh"
+else
+  echo "[FATAL] conda.sh 못 찾음 (CONDA_BASE='$CONDA_BASE'). 서버에서 'conda info --base' 확인 필요." >&2; exit 1
+fi
+conda activate "${CONDA_ENV:-base}" || { echo "[FATAL] 'conda activate ${CONDA_ENV:-base}' 실패" >&2; exit 1; }
+echo "[env] base=$CONDA_BASE | env=${CONDA_ENV:-base} | python=$(which python)"
 
 # ── .env 확인 (서버에 직접 생성 필요: SEOUL_TOPIS_API_KEY=...) ────────────────
 if [ ! -f .env ]; then
