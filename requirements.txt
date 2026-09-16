@@ -8,3 +8,8 @@ pandas>=1.5
 
 # 경로 시각화(analysis/visualize_observed_routes.py)
 folium>=0.15
+
+# 경로탐색 노트북(analysis/route_map_seoul.ipynb)용 — 별도 무거운 환경(JDK21)
+# r5py>=1.1
+# geopandas>=0.12
+# shapely>=2.0

@@ -68,8 +68,10 @@ def main():
     # ── stops.txt 보강: 동대문구 stops ∪ 파일럿노선 stops ────────────────
     ddm=pd.read_csv(STOPS_TXT, dtype=str)
     ddm_ars=set(ddm["ars_id"])
-    # 파일럿 노선 정류소(arsId 단위 유니크)
-    pr=rs.drop_duplicates("arsId")[["arsId","stId","stationNm","stop_lon","stop_lat"]].copy()
+    # 파일럿 노선 정류소(arsId 단위 유니크). arsId 빈 값(가상정류소 등)은 제외 → 빈 stop_id 방지
+    pr=rs.copy()
+    pr=pr[pr["arsId"].notna() & (pr["arsId"].astype(str).str.strip()!="")]
+    pr=pr.drop_duplicates("arsId")[["arsId","stId","stationNm","stop_lon","stop_lat"]].copy()
     merged={}
     for _,r in ddm.iterrows():
         merged[r["ars_id"]]={"stop_id":r["ars_id"],"stop_code":r["ars_id"],
@@ -82,7 +84,9 @@ def main():
         merged[a]={"stop_id":a,"stop_code":a,"stop_name":r["stationNm"],
             "stop_lat":round(r["stop_lat"],7),"stop_lon":round(r["stop_lon"],7),
             "ars_id":a,"stop_uid":r["stId"],"stop_type":"","in_dongdaemun":"0"}
-    out=pd.DataFrame(merged.values()).sort_values("stop_id")
+    out=pd.DataFrame(merged.values())
+    out=out[out["stop_id"].notna() & (out["stop_id"].astype(str).str.strip()!="")]  # 빈 stop_id 제거(R5 호환)
+    out=out.sort_values("stop_id")
     out.to_csv(STOPS_TXT, index=False, encoding="utf-8")
 
     n_ddm=(out["in_dongdaemun"]=="1").sum(); n_ext=(out["in_dongdaemun"]=="0").sum()

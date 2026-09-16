@@ -20,3 +20,6 @@ __pycache__/
 
 # 실수로 만들어진 중첩 클론 제외
 Seoul_Bus_GTFS/
+
+# 서울 OSM pbf (대용량, 자동 다운로드)
+data/osm/

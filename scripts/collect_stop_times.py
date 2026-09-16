@@ -154,6 +154,10 @@ def write_gtfs(result, service_date):
     # 정적 파일(agency/stops/routes) 복사 → 각 날짜가 완결된 GTFS
     for f in STATIC_FILES:
         if (GBASE/f).exists(): shutil.copy(GBASE/f, d/f)
+    # 안전장치: stops.txt의 빈 stop_id 행 제거(R5 등 라우팅 엔진 호환)
+    sp=pd.read_csv(d/"stops.txt",dtype=str)
+    sp=sp[sp["stop_id"].notna() & (sp["stop_id"].astype(str).str.strip()!="")]
+    sp.to_csv(d/"stops.txt",index=False,encoding="utf-8")
     # zip 패키징
     zpath=d/f"seoul_dongdaemun_gtfs_{service_date}.zip"
     with zipfile.ZipFile(zpath,"w",zipfile.ZIP_DEFLATED) as z:
