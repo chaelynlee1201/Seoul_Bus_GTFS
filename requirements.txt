@@ -5,3 +5,6 @@ pandas>=1.5
 # 정류소 클립·경로정류소 재생성(build_stops.py, build_route_stops.py)에만 필요 — 서버 일상수집엔 불필요
 # geopandas>=0.12
 # shapely>=2.0
+
+# 경로 시각화(analysis/visualize_observed_routes.py)
+folium>=0.15
