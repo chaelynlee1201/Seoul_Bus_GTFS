@@ -1,0 +1,2 @@
+agency_id,agency_name,agency_url,agency_timezone,agency_lang
+SEOUL,서울특별시 시내버스,https://topis.seoul.go.kr,Asia/Seoul,ko

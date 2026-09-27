@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ce25e269572bbeb6e9be32c2e02857b3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    <div style='position:fixed;top:12px;left:60px;z-index:9999;background:white;padding:8px 12px;border:1px solid #999;border-radius:6px;font-family:sans-serif;font-size:13px;box-shadow:2px 2px 6px rgba(0,0,0,.2)'><b>관측형 GTFS 경로탐색 (r5py)</b><br>신설동역 → 중랑교 · 20260915 20:00:00 출발</div>
+    
+            <div class="folium-map" id="map_ce25e269572bbeb6e9be32c2e02857b3" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ce25e269572bbeb6e9be32c2e02857b3 = L.map(
+                "map_ce25e269572bbeb6e9be32c2e02857b3",
+                {
+                    center: [37.5837873, 127.0459415],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a2c0498105bd65ce8921411a682ae4d5 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a2c0498105bd65ce8921411a682ae4d5.addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+            var poly_line_1a3eb117e0e72415b609ceb241648ac7 = L.polyline(
+                [[37.5759825, 127.0245405], [37.5761227, 127.0250493], [37.5762269, 127.0254271], [37.5763229, 127.0256693], [37.5763897, 127.0259231], [37.5764564, 127.0261766], [37.5768385, 127.0275254], [37.5768478, 127.0275566], [37.5769388, 127.0278577], [37.5769639, 127.027959], [37.5770173, 127.0281362], [37.577083, 127.0283686], [37.5773371, 127.029295], [37.5773824, 127.0294603], [37.5774132, 127.0295723], [37.5774838, 127.0298009], [37.5775352, 127.0299875], [37.5775321, 127.0299882]],
+                {"bubblingMouseEvents": true, "color": "#666", "dashArray": "6", "dashOffset": null, "fill": false, "fillColor": "#666", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+            var poly_line_b2c5b3d5ce741efd64ac4b6995e4858c = L.polyline(
+                [[37.5775321, 127.0299882], [37.5781433, 127.0377802], [37.5803029, 127.0457231], [37.5846075, 127.0508977], [37.5876645, 127.0552071], [37.5899925, 127.0619514], [37.5914246, 127.0668384]],
+                {"bubblingMouseEvents": true, "color": "#e6194B", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#e6194B", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 6}
+            ).addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+            poly_line_b2c5b3d5ce741efd64ac4b6995e4858c.bindTooltip(
+                `<div>
+                     버스 272
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_423cfa42f5eaadeb614319e3ef89c83b = L.circleMarker(
+                [37.5775321, 127.0299882],
+                {"bubblingMouseEvents": true, "color": "#e6194B", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6194B", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+        var popup_5987e97ad533444f07b71465f12c7a9e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_41f64fb8a34aa8ee8fe550929a43e261 = $(`<div id="html_41f64fb8a34aa8ee8fe550929a43e261" style="width: 100.0%; height: 100.0%;">승차 [272] 용두동사거리</div>`)[0];
+                popup_5987e97ad533444f07b71465f12c7a9e.setContent(html_41f64fb8a34aa8ee8fe550929a43e261);
+            
+        
+
+        circle_marker_423cfa42f5eaadeb614319e3ef89c83b.bindPopup(popup_5987e97ad533444f07b71465f12c7a9e)
+        ;
+
+        
+    
+    
+            var circle_marker_511b420ef51791e2c5c13c8469ea8c86 = L.circleMarker(
+                [37.5914246, 127.0668384],
+                {"bubblingMouseEvents": true, "color": "#e6194B", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6194B", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+        var popup_2a671f0df0890585721c519db1d9e152 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2b3ed893eedd8d426cfe47f036861cf2 = $(`<div id="html_2b3ed893eedd8d426cfe47f036861cf2" style="width: 100.0%; height: 100.0%;">하차 [272] 중랑교</div>`)[0];
+                popup_2a671f0df0890585721c519db1d9e152.setContent(html_2b3ed893eedd8d426cfe47f036861cf2);
+            
+        
+
+        circle_marker_511b420ef51791e2c5c13c8469ea8c86.bindPopup(popup_2a671f0df0890585721c519db1d9e152)
+        ;
+
+        
+    
+    
+            var poly_line_a82359774fa73ad43b96bb56fbecc7d0 = L.polyline(
+                [[37.5914246, 127.0668384], [37.5914227, 127.066839], [37.59127, 127.0663048]],
+                {"bubblingMouseEvents": true, "color": "#666", "dashArray": "6", "dashOffset": null, "fill": false, "fillColor": "#666", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+            var marker_6caca4aceb63ccafed037c28ecd0fee5 = L.marker(
+                [37.57615, 127.0250446],
+                {
+}
+            ).addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+            var icon_e7c0aa3dec55bd8e3efaa08d82c62e2c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "play",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_6caca4aceb63ccafed037c28ecd0fee5.bindTooltip(
+                `<div>
+                     출발: 신설동역
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6caca4aceb63ccafed037c28ecd0fee5.setIcon(icon_e7c0aa3dec55bd8e3efaa08d82c62e2c);
+            
+    
+            var marker_d86e3bfe113a840b5df23c52653338e5 = L.marker(
+                [37.5914246, 127.0668384],
+                {
+}
+            ).addTo(map_ce25e269572bbeb6e9be32c2e02857b3);
+        
+    
+            var icon_e6359d1e78812b409bdea50fb53968a6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "stop",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_d86e3bfe113a840b5df23c52653338e5.bindTooltip(
+                `<div>
+                     도착: 중랑교
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d86e3bfe113a840b5df23c52653338e5.setIcon(icon_e6359d1e78812b409bdea50fb53968a6);
+            
+</script>
+</html>

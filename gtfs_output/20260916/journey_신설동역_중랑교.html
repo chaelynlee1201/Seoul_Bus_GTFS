@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9a7cf7411d8876ecb196c37c1783f81a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    <div style="position:fixed;top:12px;right:12px;z-index:9999;background:rgba(255,255,255,.96);
+  border:2px solid #333;border-radius:8px;padding:10px 12px;font-size:12px;max-height:85vh;overflow-y:auto;
+  max-width:290px;box-shadow:0 2px 10px rgba(0,0,0,.35);line-height:1.45;font-family:sans-serif;">
+  <div style="font-size:14px;font-weight:bold;">신설동역 → 중랑교</div>
+  <div style="margin:3px 0 6px;"><b>출발 09:05</b> → <b>도착 09:19</b> (총 14분)</div>
+  <div style="color:#888;margin-bottom:4px;">관측형 GTFS 20260916 · r5py 경로탐색</div>
+  <table style="border-collapse:collapse;"><style>td{padding:3px 4px;border-top:1px solid #ddd;vertical-align:top;}</style>
+  <tr><td style="white-space:nowrap;"><span style="display:inline-block;width:11px;height:11px;background:#d62728;border-radius:2px;margin-right:5px;"></span><b>271</b></td><td>09:03 신설동역 승차<br>대기 1분 · 이동 14분<br>09:17 중랑교 하차</td></tr><tr><td style="color:#666;">도보</td><td style="color:#666;">1분 (50m)</td></tr></table><div style="margin-top:6px;color:#444;">● 검은 점 = 승·하차 정류장</div></div>
+    
+            <div class="folium-map" id="map_9a7cf7411d8876ecb196c37c1783f81a" ></div>
+        
+</body>
+<script>
+    
+    document.addEventListener("DOMContentLoaded",function(){function sl(){var show=map_9a7cf7411d8876ecb196c37c1783f81a.getZoom()>=12;document.querySelectorAll(".stop-label").forEach(function(el){el.style.display=show?"inline-block":"none";});}map_9a7cf7411d8876ecb196c37c1783f81a.on("zoomend",sl);sl();});
+    
+            var map_9a7cf7411d8876ecb196c37c1783f81a = L.map(
+                "map_9a7cf7411d8876ecb196c37c1783f81a",
+                {
+                    center: [37.582789857583634, 127.04624974107672],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_76075139922b2ba4538ba9d514b935f4 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_76075139922b2ba4538ba9d514b935f4.addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+        function geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#666666", "dashArray": "6", "opacity": 0.9, "weight": 3};
+            }
+        }
+
+        function geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1 = L.geoJson(null, {
+                onEachFeature: geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1_onEachFeature,
+            
+                style: geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1_styler,
+            ...{
+}
+        });
+
+        function geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1_add (data) {
+            geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1
+                .addData(data);
+        }
+            geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1_add({"features": [{"geometry": {"coordinates": [[127.0245405, 37.5759825], [127.0250493, 37.5761227], [127.0250446, 37.57615]], "type": "LineString"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1.bindTooltip(
+                `<div>
+                     [0] 도보 0분 (3m)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            geo_json_ac2c3ac273655f6d537ee0c17d0ce9d1.addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+        function geo_json_5b53be97f1a0b674a52374bd461cfc03_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#d62728", "dashArray": null, "opacity": 0.9, "weight": 6};
+            }
+        }
+
+        function geo_json_5b53be97f1a0b674a52374bd461cfc03_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_5b53be97f1a0b674a52374bd461cfc03 = L.geoJson(null, {
+                onEachFeature: geo_json_5b53be97f1a0b674a52374bd461cfc03_onEachFeature,
+            
+                style: geo_json_5b53be97f1a0b674a52374bd461cfc03_styler,
+            ...{
+}
+        });
+
+        function geo_json_5b53be97f1a0b674a52374bd461cfc03_add (data) {
+            geo_json_5b53be97f1a0b674a52374bd461cfc03
+                .addData(data);
+        }
+            geo_json_5b53be97f1a0b674a52374bd461cfc03_add({"features": [{"geometry": {"coordinates": [[127.0250446, 37.57615], [127.0299882, 37.5775321], [127.0377802, 37.5781433], [127.0418951, 37.5789522], [127.0457231, 37.5803029], [127.0508977, 37.5846075], [127.0552071, 37.5876645], [127.0619514, 37.5899925], [127.0668384, 37.5914246]], "type": "LineString"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_5b53be97f1a0b674a52374bd461cfc03.bindTooltip(
+                `<div>
+                     [1] 271 · 09:03 승차(대기 1분) → 09:17 하차 | 신설동역 → 중랑교
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            geo_json_5b53be97f1a0b674a52374bd461cfc03.addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            var marker_851a86026d196a13b27c5b99ebb1c35f = L.marker(
+                [37.58127490538939, 127.04689155678761],
+                {
+}
+            ).addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            var div_icon_9d593553de700085a80c97ed2e7e08cc = L.divIcon({
+  "html": "\u003cdiv style=\"background:#d62728;color:#fff;padding:5px 14px;border-radius:14px;font-size:18px;font-weight:bold;box-shadow:0 1px 5px rgba(0,0,0,.45);white-space:nowrap;display:inline-block;text-align:center;transform:translate(-50%,-50%);\"\u003e271\u003c/div\u003e",
+  "iconSize": [0, 0],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_851a86026d196a13b27c5b99ebb1c35f.setIcon(div_icon_9d593553de700085a80c97ed2e7e08cc);
+            
+    
+            var circle_marker_1e2e94435f42e52350c56002c8e1bcff = L.circleMarker(
+                [37.57615, 127.0250446],
+                {"bubblingMouseEvents": true, "color": "#000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#000", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            circle_marker_1e2e94435f42e52350c56002c8e1bcff.bindTooltip(
+                `<div>
+                     271 승차 신설동역 (09:03·대기 1분)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_710968a727850efccd115a955910c09c = L.marker(
+                [37.57615, 127.0250446],
+                {
+}
+            ).addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            var div_icon_e484faaf4bb64b15ccc30594a7fd35a5 = L.divIcon({
+  "html": "\u003cdiv class=\"stop-label\" style=\"background:#fff;border:2px solid #000;color:#000;padding:4px 18px;border-radius:5px;font-size:14px;font-weight:bold;white-space:nowrap;display:none;text-align:center;transform:translate(-50%,60%);box-shadow:0 1px 3px rgba(0,0,0,.3);\"\u003e\uc2b9\ucc28 \uc2e0\uc124\ub3d9\uc5ed\u003c/div\u003e",
+  "iconSize": [0, 0],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_710968a727850efccd115a955910c09c.setIcon(div_icon_e484faaf4bb64b15ccc30594a7fd35a5);
+            
+    
+            var circle_marker_385690d193b846a61a593ffb6e2e74ee = L.circleMarker(
+                [37.5914246, 127.0668384],
+                {"bubblingMouseEvents": true, "color": "#000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#000", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            circle_marker_385690d193b846a61a593ffb6e2e74ee.bindTooltip(
+                `<div>
+                     271 하차 중랑교 (09:17)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_c126c89b86dcb5af71bf5a7fa53c456b = L.marker(
+                [37.5914246, 127.0668384],
+                {
+}
+            ).addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            var div_icon_c6070cfa9c98b752852c8b3de9dc3f2e = L.divIcon({
+  "html": "\u003cdiv class=\"stop-label\" style=\"background:#fff;border:2px solid #000;color:#000;padding:4px 18px;border-radius:5px;font-size:14px;font-weight:bold;white-space:nowrap;display:none;text-align:center;transform:translate(-50%,-165%);box-shadow:0 1px 3px rgba(0,0,0,.3);\"\u003e\ud558\ucc28 \uc911\ub791\uad50\u003c/div\u003e",
+  "iconSize": [0, 0],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_c126c89b86dcb5af71bf5a7fa53c456b.setIcon(div_icon_c6070cfa9c98b752852c8b3de9dc3f2e);
+            
+    
+        function geo_json_35327937120684fea85b014ae1b68a0a_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "#666666", "dashArray": "6", "opacity": 0.9, "weight": 3};
+            }
+        }
+
+        function geo_json_35327937120684fea85b014ae1b68a0a_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_35327937120684fea85b014ae1b68a0a = L.geoJson(null, {
+                onEachFeature: geo_json_35327937120684fea85b014ae1b68a0a_onEachFeature,
+            
+                style: geo_json_35327937120684fea85b014ae1b68a0a_styler,
+            ...{
+}
+        });
+
+        function geo_json_35327937120684fea85b014ae1b68a0a_add (data) {
+            geo_json_35327937120684fea85b014ae1b68a0a
+                .addData(data);
+        }
+            geo_json_35327937120684fea85b014ae1b68a0a_add({"features": [{"geometry": {"coordinates": [[127.0668384, 37.5914246], [127.066839, 37.5914227], [127.0663048, 37.59127]], "type": "LineString"}, "id": "0", "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_35327937120684fea85b014ae1b68a0a.bindTooltip(
+                `<div>
+                     [2] 도보 1분 (50m)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            geo_json_35327937120684fea85b014ae1b68a0a.addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            var marker_cdad1c92129af2883abea5a1effdb2b8 = L.marker(
+                [37.5759825, 127.0245405],
+                {
+}
+            ).addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            var icon_563f393b42969994c22d89db016b2098 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_cdad1c92129af2883abea5a1effdb2b8.bindTooltip(
+                `<div>
+                     출발: 신설동역 (09:05)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cdad1c92129af2883abea5a1effdb2b8.setIcon(icon_563f393b42969994c22d89db016b2098);
+            
+    
+            var marker_f1ff9c117832806d0b8657aef1442319 = L.marker(
+                [37.59127, 127.0663048],
+                {
+}
+            ).addTo(map_9a7cf7411d8876ecb196c37c1783f81a);
+        
+    
+            var icon_3ec550cdadc7bd8f04ef4356512f0e10 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_f1ff9c117832806d0b8657aef1442319.bindTooltip(
+                `<div>
+                     도착: 중랑교 (09:19)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f1ff9c117832806d0b8657aef1442319.setIcon(icon_3ec550cdadc7bd8f04ef4356512f0e10);
+            
+</script>
+</html>
